@@ -1,0 +1,16 @@
+.item-img {
+    width: 200px;
+    height: 200px;
+}
+
+.item-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    max-width: 1000px;
+    gap: 25px;
+    margin: 100px auto;
+}
+
+.item-name {
+    margin: 0;
+}
