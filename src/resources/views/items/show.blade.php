@@ -13,7 +13,7 @@
         <h2 class="item-name">{{ $item->name }}</h2>
         <small class="item-brand">{{ $item->brand }}</small>
         <p class="item-price">{{ $item->price }}</p>
-        <a href="{{ route('orders.create', ['item' => $item->id]) }}" class="item-purchase">購入手続きへ</a>
+        <a href="{{ route('orders.create', ['item_id' => $item->id]) }}" class="item-purchase">購入手続きへ</a>
         <div class="item-explanation-container">
             <h3>商品説明</h3>
             <p class="item-explanation">{{ $item->description }}</p>
