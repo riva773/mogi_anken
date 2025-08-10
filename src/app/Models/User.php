@@ -16,7 +16,7 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
-     */
+     */ 
     protected $fillable = [
         'name',
         'email',
@@ -42,5 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function getPostalCodeFormattedAttribute(){
+        $zip = $this->postal_code;
+        if(!is_string($zip) || !preg_match('/^\d{7}$/' , $zip)){
+            return null;
+        }
+        return substr($zip,0,3) . '-' . substr($zip,3,4);
+    }
+
+
 }
