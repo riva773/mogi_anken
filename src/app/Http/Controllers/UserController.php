@@ -32,9 +32,9 @@ class UserController extends Controller
     }
 
     public function editProfile(){
-
+        return view('users.edit_profile');
     }
     public function updateProfile(){
-        
+        return redirect('/');
     }
 }

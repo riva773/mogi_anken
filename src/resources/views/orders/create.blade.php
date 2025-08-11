@@ -11,10 +11,6 @@
 
 <body>
     @section('content')
-    <form action="{{route('logout')}}" method="post">
-        @csrf
-        <button type="submit">ログアウト</button>
-    </form>
     <div class="items-container">
         <img src="{{ $item->image }}" alt="商品画像">
         <h2>{{ $item->name }}</h2>
