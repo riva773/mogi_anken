@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,6 +8,7 @@
     <title>ログインページ</title>
 </head>
 <body>
+@section('content')
     <form action="{{ route('login') }}" method="post">
         @csrf
         <h3>ログイン</h3>
@@ -16,5 +19,6 @@
         <button type="submit" class= "btn">ログインする</button>
     </form>
     <a href="{{ route('register') }}">会員登録はこちら</a>
+@endsection
 </body>
 </html>

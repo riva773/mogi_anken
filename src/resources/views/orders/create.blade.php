@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -8,6 +10,11 @@
 </head>
 
 <body>
+    @section('content')
+    <form action="{{route('logout')}}" method="post">
+        @csrf
+        <button type="submit">ログアウト</button>
+    </form>
     <div class="items-container">
         <img src="{{ $item->image }}" alt="商品画像">
         <h2>{{ $item->name }}</h2>
@@ -35,6 +42,7 @@
         <p>コンビニ払い</p>
         <button>購入する</button>
     </div>
+@endsection
 </body>
 
 </html>

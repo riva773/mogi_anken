@@ -25,4 +25,16 @@ class UserController extends Controller
 
         return redirect()->route('orders.create',['item_id' => $item_id]);
     }
+
+    public function profile(){
+        $user = Auth::user();
+        return view('users.profile');
+    }
+
+    public function editProfile(){
+
+    }
+    public function updateProfile(){
+        
+    }
 }

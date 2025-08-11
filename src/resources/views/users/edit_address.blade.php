@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -8,6 +9,7 @@
 </head>
 
 <body>
+@section('content')
     <h2>住所の変更</h2>
     <form action="{{ route('address.update',['item_id' => $item->id]) }}" method="post">
         @csrf
@@ -19,6 +21,7 @@
         <input type="text" name="building" id="">
         <button type="submit">更新する</button>
     </form>
+@endsection
 </body>
 
 </html>
