@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+
 use App\Models\User;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -30,22 +31,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Fortify::authenticateUsing(function (Request $request){
-            $user = User::where('email',$request->email)->first();
-            if(!$user){
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
                 return null;
             }
 
-            if(! Hash::check($request->password,$user->password)){
+            if (! Hash::check($request->password, $user->password)) {
                 return null;
             };
 
-            if(!$user->hasVerifiedEmail()){
+            if (!$user->hasVerifiedEmail()) {
                 return null;
             }
             return $user;
         });
-
-        
     }
 }

@@ -8,8 +8,16 @@ use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/sell',  [ItemController::class, 'create'])->name('items.create');
+    Route::post('/sell', [ItemController::class, 'storeItem'])->name('items.store');
+});
+
 Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/{item_id}', [ItemController::class, 'show']);
+Route::get('/item/{item_id}', [ItemController::class, 'show'])
+    ->name('items.show');
+Route::post('/item/{item}/comments', [ItemController::class, 'store'])->name('item.comments.store')->middleware('auth');
 Route::get('purchase/{item_id}', [OrderController::class, 'create'])
     ->middleware('auth')
     ->name('orders.create');
@@ -23,7 +31,7 @@ Route::post('purchase/address/{item_id}', [UserController::class, 'updateAddress
 Route::middleware('auth')->group(function () {
     Route::get('mypage', [UserController::class, 'profile'])->name('mypage');
     Route::get('mypage/profile', [UserController::class, 'editProfile'])->name('mypage.profile');
-    Route::put('mypage', [UserController::class, 'updateProfile'])->name('mypage.update');
+    Route::put('mypage/profile', [UserController::class, 'updateProfile'])->name('mypage.profile.update');
 });
 
 Route::get('/email/verify', function () {
