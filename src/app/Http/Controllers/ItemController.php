@@ -21,9 +21,11 @@ class ItemController extends Controller
 
     public function show($item_id)
     {
-        $item =  Item::find($item_id);
-        $comments = $item->comments;
-        return view('items.show', compact('item', 'comments'));
+        $item = Item::with('comments')->withCount('likes', 'comments')->findOrFail($item_id);
+        $comments = $item->comments()->get();
+        $likedByMe = auth()->check() ? $item->likes()->where('user_id', auth()->id())->exists() : false;
+
+        return view('items.show', compact('item', 'comments', 'likedByMe'));
     }
 
     public function store(Request $request, Item $item)

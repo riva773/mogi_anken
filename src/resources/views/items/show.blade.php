@@ -18,6 +18,26 @@
         {{ $item->price }}
         <span class="tax-label">(税込)</span>
     </p>
+    @if(!$likedByMe)
+    <form action="{{ route('items.like',['item_id' => $item->id]) }}" method="post">
+        @csrf
+        <button type="submit">
+            <i class="fa-solid fa-star"></i>
+        </button>
+    </form>
+    @else
+    <form action="{{ route('items.unlike',['item_id' => $item->id ]) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit">
+            <i class="fa-solid fa-star"></i>
+        </button>
+    </form>
+    @endif
+    <span>{{ $item->likes_count}}</span>
+    <i class="fa-solid fa-comment"></i>
+    <span>{{ $item->comments_count}}</span>
+
     <a href="{{ route('orders.create', ['item_id' => $item->id]) }}" class="item-purchase">購入手続きへ</a>
     <div class="item-explanation-container">
         <h3>商品説明</h3>

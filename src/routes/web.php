@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LikesController;
+use GuzzleHttp\Middleware;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/sell',  [ItemController::class, 'create'])->name('items.create');
     Route::post('/sell', [ItemController::class, 'storeItem'])->name('items.store');
 });
@@ -54,3 +56,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::post('/purchase/{item_id}', [OrderController::class, 'store'])->middleware('auth')->name('orders.store');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/item/{item_id}/like', [LikesController::class, 'like'])->name('items.like');
+    Route::delete('/item/{item_id}/like', [LikesController::class, 'unlike'])->name('items.unlike');
+});

@@ -34,4 +34,9 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'buyer_id', 'id');
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

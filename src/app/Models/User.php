@@ -29,6 +29,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Item::class, 'buyer_id', 'id');
     }
 
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
