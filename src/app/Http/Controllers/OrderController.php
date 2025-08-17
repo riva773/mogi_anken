@@ -14,4 +14,23 @@ class OrderController extends Controller
         $user = Auth::user();
         return view('orders.create', compact('item', 'user'));
     }
+
+    public function store($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $user = Auth::user();
+        if ($item->seller_id === $user->id) {
+            return back();
+        }
+
+        if ($item->status === 'sold') {
+            return back();
+        }
+
+        $item->update([
+            'status' => 'sold',
+            'buyer_id' => $user->id
+        ]);
+        return redirect('/');
+    }
 }

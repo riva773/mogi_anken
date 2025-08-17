@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/sell',  [ItemController::class, 'create'])->name('items.create');
     Route::post('/sell', [ItemController::class, 'storeItem'])->name('items.store');
 });
@@ -52,3 +52,5 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::post('/purchase/{item_id}', [OrderController::class, 'store'])->middleware('auth')->name('orders.store');

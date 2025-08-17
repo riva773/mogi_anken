@@ -11,7 +11,11 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $query = Item::query();
+        if (Auth::check()) {
+            $query->where('seller_id', '!=', Auth::id());
+        }
+        $items = $query->latest()->get();
         return view('items.index', compact('items'));
     }
 
