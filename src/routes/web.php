@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell', [ItemController::class, 'storeItem'])->name('items.store');
 });
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])
     ->name('items.show');
 Route::post('/item/{item}/comments', [ItemController::class, 'store'])->name('item.comments.store')->middleware('auth');

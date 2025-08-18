@@ -9,14 +9,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $query = Item::query();
-        if (Auth::check()) {
-            $query->where('seller_id', '!=', Auth::id());
+        $tab = $request->query('page', 'recommend');
+
+        if ($tab === 'mylist') {
+            if (!Auth::check()) {
+                $items = collect();
+            } else {
+                $items = Item::query()->whereHas('likedBy', function ($q) {
+                    $q->whereKey(Auth::id());
+                })->latest()->get();
+            }
+        } else {
+            $query = Item::query();
+            if (Auth::check()) {
+                $query->where('seller_id', '!=', Auth::id());
+            }
+            $items = $query->latest()->get();
         }
-        $items = $query->latest()->get();
-        return view('items.index', compact('items'));
+        return view('items.index', compact('items', 'tab'));
     }
 
     public function show($item_id)
