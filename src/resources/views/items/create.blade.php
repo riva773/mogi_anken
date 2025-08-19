@@ -4,12 +4,15 @@
 @endsection
 
 @section('content')
+@include('partials.errors')
 <form action="{{ route('items.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <section>
         <h2>商品の出品</h2>
         <label for="image">商品画像</label><br>
         <input id="image" type="file" name="image" accept="image/*">
+        @error('image')
+        @enderror
     </section>
 
     <section>
@@ -32,6 +35,8 @@
                 </label>
                 @endforeach
             </div>
+            @error('category_id')
+            @enderror
         </div>
 
         {{-- 商品の状態 --}}
@@ -44,7 +49,8 @@
                 <option value="やや傷や汚れあり" @selected(old('condition')==='やや傷や汚れあり' )>やや傷や汚れあり</option>
                 <option value="状態が悪い" @selected(old('condition')==='状態が悪い' )>状態が悪い</option>
             </select>
-
+            @error('condition')
+            @enderror
         </div>
     </section>
 
@@ -54,6 +60,8 @@
         <div style="margin-top:8px;">
             <label for="name">商品名</label><br>
             <input id="name" type="text" name="name" value="{{ old('name') }}">
+            @error('name')
+            @enderror
         </div>
 
         <div>
@@ -64,11 +72,15 @@
         <div>
             <label for="description">商品の説明</label><br>
             <textarea id="description" name="description" rows="6">{{ old('description') }}</textarea>
+            @error('description')
+            @enderror
         </div>
 
         <div>
             <label for="price">販売価格</label><br>
-            <input id="price" type="number" name="price" value="{{ old('price') }}" min="1" step="1" placeholder="¥">
+            <input id="price" type="number" name="price" value="{{ old('price') }}" min="0" step="1" placeholder="¥">
+            @error('price')
+            @enderror
         </div>
     </section>
 

@@ -59,7 +59,10 @@
         <h4>商品へのコメント</h4>
         <form action="{{ route('item.comments.store',$item->id) }}" method="post">
             @csrf
+            @include('partials.errors')
             <textarea name="content" id=""></textarea>
+            @error('content')
+            @enderror
             <button type="submit">コメントを送信する</button>
         </form>
     </div>

@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\ItemShippingOverride;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Http\Requests\ShippingAddressRequest;
 
 class shippingAddressController extends Controller
 {
     public function edit($item_id)
     {
         $item = Item::findOrFail($item_id);
-        return view('purchase.address_edit', compact('item'));
+        $user = Auth::user();
+        $shipping = $item->effectiveShippingAddressFor($user);
+        return view('purchase.address_edit', compact('item', 'user', 'shipping'));
     }
 
-    public function update(Request $request, $item_id)
+    public function update(ShippingAddressRequest $request, $item_id)
     {
         $user = Auth::user();
 

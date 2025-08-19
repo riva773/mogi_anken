@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
@@ -51,11 +52,12 @@ class ItemController extends Controller
         return view('items.show', compact('item', 'comments', 'likedByMe'));
     }
 
-    public function store(Request $request, Item $item)
+    public function store(CommentRequest $request, Item $item)
     {
+        $validated = $request->validated();
         $item->comments()->create([
             'user_id' => Auth::id(),
-            'content' => $request->input('content')
+            'content' => $validated['content']
         ]);
         return back();
     }
@@ -65,13 +67,15 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    public function storeItem(Request $request)
+    public function storeItem(ExhibitionRequest $request)
     {
+        $validated = $request->validated();
+
         $item = new Item();
-        $item->name        = $request->input('name');
-        $item->price       = $request->input('price');
-        $item->description = $request->input('description');
-        $item->condition   = $request->input('condition');
+        $item->name        = $validated['name'];
+        $item->price       = $validated['price'];
+        $item->description = $validated['description'];
+        $item->condition   = $validated['condition'];
         $item->seller_id   = Auth::id();
         $item->status      = 'for_sale';
 

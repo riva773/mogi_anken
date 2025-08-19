@@ -13,7 +13,7 @@
     メール認証を完了してください。
 </p>
 
-<a href="https://mail.google.com/" target="_blank" rel="noopener">
+<a href="http://localhost:8025" target="_blank" rel="noopener">
     認証はこちらから
 </a>
 

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
@@ -17,12 +19,15 @@ class UserController extends Controller
         return view('users.edit_address', compact('item'));
     }
 
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AddressRequest $request, $item_id)
     {
+        $validated = $request->validated();
+
         $user = Auth::user();
-        $user->postal_code = $request->postal_code;
-        $user->address = $request->address;
-        $user->building = $request->building;
+        $user->name = $validated['name'];
+        $user->postal_code = preg_replace('/\D/', '', (string)$validated['postal_code']) ?: null;
+        $user->address = $validated['address'];
+        $user->building = $validated['building'] ?? null;
         $user->save();
 
         return redirect()->route('orders.create', ['item_id' => $item_id]);
@@ -53,28 +58,38 @@ class UserController extends Controller
         $user = Auth::user();
         return view('users.edit_profile', compact('user'));
     }
-    public function updateProfile(Request $request)
+
+    public function updateProfile(ProfileRequest $request)
     {
-        $user = Auth::user();
-        $name = $request->input('name');
-        if (empty($name)) {
-            $user->name = $user->name;
-        } else {
-            $user->name = $name;
-        }
-        $user->postal_code = preg_replace('/\D/', '', (string)$request->input('postal_code')) ?: null;
-        $user->address    = $request->input('address');
-        $user->building   = $request->input('building');
+        $validated = $request->validated();
+
+        $user = \Illuminate\Support\Facades\Auth::user();
+
+        $user->name = $validated['name'];
+
+        $postalRaw = $validated['postal_code'] ?? null;
+        $user->postal_code = ($postalRaw === null || $postalRaw === '')
+            ? $user->postal_code
+            : preg_replace('/\D/', '', (string)$postalRaw);
+
+        $user->address  = array_key_exists('address', $validated) && $validated['address'] !== ''
+            ? $validated['address']
+            : $user->address;
+
+        $user->building = array_key_exists('building', $validated) && $validated['building'] !== ''
+            ? $validated['building']
+            : $user->building;
+
+
         if ($request->hasFile('avatar')) {
-            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-                Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
             }
             $path = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $path;
         }
 
         $user->save();
-
 
         return redirect('mypage');
     }
