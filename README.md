@@ -1,4 +1,4 @@
-# 模擬フリマアプリ（mogi_anken）
+# フリマアプリ
 
 ## 環境構築
 
@@ -11,7 +11,7 @@ cp -n src/.env.example src/.env
 
 docker compose up -d --build
 docker compose exec php composer install
-docker compose exec php php artisan key:generate      APP_KEY を生成（暗号化・セッションに必須）
+docker compose exec php php artisan key:generate    
 docker compose exec php php artisan storage:link
 docker compose exec php php artisan migrate --seed
 ```
@@ -45,4 +45,22 @@ QUEUE_CONNECTION=sync
 - DB：MySQL 8.0.26
 - Mail：MailHog
 
+## URL一覧
+
+- 商品一覧画面: http://localhost/
+- 商品詳細画面: http://localhost/item/{item_id}
+- 会員登録画面: http://localhost/register
+- ログイン画面: http://localhost/login
+- 商品購入画面: http://localhost/orders/create/{item_id}
+- 住所変更画面: http://localhost/users/address/{item_id}/edit
+- プロフィール画面: http://localhost/mypage
+- プロフィール編集画面: http://localhost/mypage/profile/edit
+- 商品出品画面: http://localhost/sell
+- マイリスト画面: http://localhost/?page=mylist
+- 購入商品一覧: http://localhost/mypage?page=buy
+- 出品商品一覧: http://localhost/mypage?page=sell
+
+
 ## ER 図
+
+
