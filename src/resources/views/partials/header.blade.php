@@ -1,10 +1,22 @@
+@php
+$isSimple = request()->routeIs([
+'register',
+'login',
+'verification.notice'
+]);
+@endphp
+
+@if($isSimple)
 <div class="header">
     <img src="/images/logo.svg" alt="ロゴ">
+</div>
+@else
+<div class="header">
+    <img src="/images/logo.svg" alt="ロゴ">
+
     <form action="{{ route('items.index')}}" method="get">
         <input type="search" name="q" id="global-search" placeholder="なにをお探しですか？" value="{{ request('q') }}">
-        <button type="submit"></button>
     </form>
-
 
     @auth
     <form action="{{ route('logout') }}" method="POST">
@@ -22,3 +34,4 @@
     <a href="{{route('mypage')}}">マイページ</a>
     <a href="{{ route('items.create') }}">出品</a>
 </div>
+@endif
