@@ -12,20 +12,31 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('page', 'recommend');
+        $q = $request->query('q');
 
         if ($tab === 'mylist') {
             if (!Auth::check()) {
                 $items = collect();
             } else {
-                $items = Item::query()->whereHas('likedBy', function ($q) {
-                    $q->whereKey(Auth::id());
-                })->latest()->get();
+                $items = Item::query()->whereHas('likedBy', function ($builder) {
+                    $builder->whereKey(Auth::id());
+                })
+                    ->when($q !== null && $q !== '', function ($query) use ($q) {
+                        $query->where('name', 'LIKE', '%' . $q . '%');
+                    })
+                    ->latest()
+                    ->get();
             }
         } else {
             $query = Item::query();
             if (Auth::check()) {
                 $query->where('seller_id', '!=', Auth::id());
             }
+
+            $query->when($q !== null && $q !== '', function ($sub) use ($q) {
+                $sub->where('name', 'LIKE', '%' . $q . '%');
+            });
+
             $items = $query->latest()->get();
         }
         return view('items.index', compact('items', 'tab'));

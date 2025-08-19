@@ -31,10 +31,11 @@ $currentTab = $tab ?? request('page','recommend')
         <a href="{{ route('items.show', $item->id) }}">
             <img src=" {{ $item->image }}" alt="商品画像" class="item-img">
             <p class="item-name"> {{ $item->name }}</p>
-            @if($item->status == "sold")
-            <span>sold</span>
-            @endif
         </a>
+        @if($item->status == "sold")
+        <span>sold</span>
+        @endif
+
     </div>
     @endforeach
 </div>

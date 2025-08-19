@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    @include('partials/simple-header')
     <p>
         登録していただいたメールアドレスに認証メールを送付しました。
         メール認証を完了してください。

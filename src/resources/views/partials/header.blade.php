@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
+<div class="header">
+    <img src="/images/logo.svg" alt="ロゴ">
+    <form action="{{ route('items.index')}}" method="get">
+        <input type="search" name="q" id="global-search" placeholder="なにをお探しですか？" value="{{ request('q') }}">
+        <button type="submit"></button>
+    </form>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 
-<body>
-    <div class="header">
-        <img src="/images/logo.svg" alt="ロゴ">
-        <input type="search" name="" id="" placeholder="なにをお探しですか？">
-        @auth
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit">
-                ログアウト
-            </button>
-        </form>
-        @endauth
-        <a href="{{route('mypage')}}">マイページ</a>
-        <a href="{{ route('items.create') }}">出品</a>
-    </div>
-</body>
+    @auth
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">
+            ログアウト
+        </button>
+    </form>
+    @endauth
 
-</html>
+    @guest
+    <a href="{{ route('login') }}">ログイン</a>
+    @endguest
+
+    <a href="{{route('mypage')}}">マイページ</a>
+    <a href="{{ route('items.create') }}">出品</a>
+</div>
