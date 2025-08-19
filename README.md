@@ -62,5 +62,6 @@ QUEUE_CONNECTION=sync
 
 
 ## ER 図
+<img width="979" height="934" alt="Image" src="https://github.com/user-attachments/assets/21743559-f31b-4bc4-86b3-7726d060fc58" />
 
 
