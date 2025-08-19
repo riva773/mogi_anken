@@ -18,10 +18,10 @@
 </div>
 <div class="order-address">
     <p>配送先</p>
-    <a href="{{ route('address.edit', ['item_id' => $item->id]) }}">変更する</a>
-    <p>〒 {{ $user->postal_code_formatted }}</p>
-    <p>{{ $user->address }}</p>
-    <p>{{ $user->building }}</p>
+    <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">変更する</a>
+    <p>〒 {{ $shipping['postal_code'] }}</p>
+    <p>{{ $shipping['address'] }}</p>
+    <p>{{ $shipping['building'] }}</p>
 </div>
 
 <div class="order-container">

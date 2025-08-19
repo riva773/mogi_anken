@@ -48,4 +48,27 @@ class Item extends Model
             'likes'
         )->withTimestamps();
     }
+
+    public function shippingOverrides()
+    {
+        return $this->hasMany(ItemShippingOverride::class);
+    }
+
+    public function effectiveShippingAddressFor(User $user)
+    {
+        $override = $this->shippingOverrides()->where('user_id', $user->id)->first();
+
+        if ($override) {
+            return [
+                'postal_code' => $override->postal_code,
+                'address' => $override->address,
+                'building' => $override->building,
+            ];
+        }
+        return [
+            'postal_code' => $user->postal_code,
+            'address' => $user->address,
+            'building' => $user->building,
+        ];
+    }
 }

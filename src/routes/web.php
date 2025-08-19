@@ -6,6 +6,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LikesController;
 use GuzzleHttp\Middleware;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ShippingAddressController;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -23,13 +25,6 @@ Route::post('/item/{item}/comments', [ItemController::class, 'store'])->name('it
 Route::get('purchase/{item_id}', [OrderController::class, 'create'])
     ->middleware('auth')
     ->name('orders.create');
-Route::get('purchase/address/{item_id}', [UserController::class, 'editAddress'])
-    ->middleware('auth')
-    ->name('address.edit');
-Route::post('purchase/address/{item_id}', [UserController::class, 'updateAddress'])
-    ->middleware('auth')
-    ->name('address.update');
-
 Route::middleware('auth')->group(function () {
     Route::get('mypage', [UserController::class, 'profile'])->name('mypage');
     Route::get('mypage/profile', [UserController::class, 'editProfile'])->name('mypage.profile');
@@ -60,4 +55,10 @@ Route::post('/purchase/{item_id}', [OrderController::class, 'store'])->middlewar
 Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like', [LikesController::class, 'like'])->name('items.like');
     Route::delete('/item/{item_id}/like', [LikesController::class, 'unlike'])->name('items.unlike');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('purchase/address/{item_id}', [ShippingAddressController::class, 'edit'])->name('purchase.address.edit');
+
+    Route::post('purchase/address/{item_id}', [ShippingAddressController::class, 'update'])->name('purchase.address.update');
 });

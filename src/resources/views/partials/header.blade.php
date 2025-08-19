@@ -8,12 +8,16 @@ $isSimple = request()->routeIs([
 
 @if($isSimple)
 <div class="header">
-    <img src="/images/logo.svg" alt="ロゴ">
+    <a href="{{ route('items.index') }}">
+        <img src="/images/logo.svg" alt="ロゴ">
+    </a>
+
 </div>
 @else
 <div class="header">
-    <img src="/images/logo.svg" alt="ロゴ">
-
+    <a href="{{ route('items.index') }}">
+        <img src="/images/logo.svg" alt="ロゴ">
+    </a>
     <form action="{{ route('items.index')}}" method="get">
         <input type="search" name="q" id="global-search" placeholder="なにをお探しですか？" value="{{ request('q') }}">
     </form>

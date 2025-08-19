@@ -43,6 +43,13 @@ class User extends Authenticatable implements MustVerifyEmail
         )->withTimestamps();
     }
 
+    public function shippingOverrides()
+    {
+        return $this->hasMany(ItemShippingOverride::class);
+    }
+
+   
+
     /**
      * The attributes that are mass assignable.
      *

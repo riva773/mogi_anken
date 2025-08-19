@@ -12,7 +12,9 @@ class OrderController extends Controller
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
-        return view('orders.create', compact('item', 'user'));
+        $shipping = $item->effectiveShippingAddressFor($user);
+
+        return view('orders.create', compact('item', 'user', 'shipping'));
     }
 
     public function store($item_id)
