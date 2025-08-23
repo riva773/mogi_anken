@@ -1,3 +1,279 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.show {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 36px 16px 24px;
+}
+
+.show__grid {
+    display: grid;
+    grid-template-columns: 600px minmax(0, 690px);
+    column-gap: 45px;
+    row-gap: 24px;
+}
+
+.img-container {
+    width: 600px;
+    aspect-ratio: 1 / 1;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.item-text-container {
+    max-width: 690px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.item-name {
+    font-size: 28px;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.item-brand {
+    color: #666;
+}
+
+.item-price {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 6px 0 0;
+}
+
 .tax-label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 6px;
+    color: #333;
+}
+
+.item-stats {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin: 8px 0;
+}
+
+.like-block,
+.comment-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    width: 60px;
+}
+
+.icon-btn {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.icon-btn.is-active {
+    background: #ffe08a;
+}
+
+.comment-block i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.icon-btn i,
+.comment-block i {
+    font-size: 32px;
+    color: #111;
+}
+
+.count {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}
+
+.item-purchase {
+    display: inline-block;
+    text-align: center;
+    background: #ff5a5f;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 24px;
+    text-decoration: none;
+    margin-top: 4px;
+}
+
+.item-explanation-container h3,
+.item-information h3,
+.item-comments-container h3 {
+    font-size: 18px;
+    margin: 18px 0 8px;
+}
+
+.item-explanation {
+    line-height: 1.9;
+    color: #333;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.item-information .info-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 8px 0;
+}
+
+.chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    border-radius: 12px;
+    background: #efefef;
+    color: #333;
     font-size: 12px;
+    padding: 0 10px;
+}
+
+.item-comments-container h4 {
+    font-size: 16px;
+    margin: 18px 0 8px;
+}
+
+.comment {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    flex: none;
+}
+
+.comment__body {
+    flex: 1;
+}
+
+.author {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.content {
+    margin: 0;
+    color: #333;
+}
+
+.no-comments {
+    color: #777;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 140px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.btn-send {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    background: #ff5a5f;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    height: 44px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .show {
+        max-width: 1260px;
+    }
+
+    .show__grid {
+        grid-template-columns: 560px minmax(0, 640px);
+        column-gap: 40px;
+    }
+
+    .img-container {
+        width: 560px;
+        border-radius: 4px;
+    }
+
+    .item-text-container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .show {
+        max-width: 980px;
+    }
+
+    .show__grid {
+        grid-template-columns: 480px minmax(0, 1fr);
+        column-gap: 32px;
+    }
+
+    .img-container {
+        width: 480px;
+    }
+}
+
+@media (max-width: 899px) {
+    .show__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .img-container {
+        width: 100%;
+    }
+
+    .item-text-container {
+        max-width: 100%;
+    }
 }

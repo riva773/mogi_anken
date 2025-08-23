@@ -1,0 +1,178 @@
+html,
+body {
+    margin: 0;
+    padding: 0
+}
+
+.order {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 16px;
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 40px;
+}
+
+.items-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.item-thumb {
+    width: 178px;
+    height: 178px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-name {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 20px;
+}
+
+.item-price {
+    font-size: 27px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.divider {
+    margin: 32px 0;
+    border: 0;
+    border-top: 1px solid #000;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 12px;
+}
+
+.select-payment {
+    width: 265px;
+    height: 31px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+.order-address {
+    margin-top: 40px;
+}
+
+.address-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address-edit {
+    font-size: 20px;
+    color: #0073CC;
+    text-decoration: none;
+}
+
+.address-edit:hover {
+    text-decoration: underline
+}
+
+.address-body {
+    margin-top: 12px;
+}
+
+.zip,
+.addr,
+.bldg {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.order-container {
+    width: 440px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order-price {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.buy-form {
+    margin-top: 20px;
+}
+
+.btn-buy {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 6px;
+    background: #FF5555;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn-buy:hover {
+    opacity: .9
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.btn-buy {
+    width: 440px;
+    height: 60px;
+    border: none;
+    border-radius: 6px;
+    background: #FF5555;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-buy:hover {
+    opacity: .9
+}
+
+@media (max-width:900px) {
+    .order {
+        grid-template-columns: 1fr;
+    }
+
+    .order-container {
+        width: 100%;
+    }
+}

@@ -7,35 +7,50 @@ $isSimple = request()->routeIs([
 @endphp
 
 @if($isSimple)
-<div class="header">
-    <a href="{{ route('items.index') }}">
-        <img src="/images/logo.svg" alt="ロゴ">
-    </a>
-
-</div>
+<header class="g-header">
+    <div class="g-header__inner">
+        <div class="g-header__logo">
+            <a href="{{ route('items.index') }}">
+                <img src="/images/logo.svg" alt="ロゴ">
+            </a>
+        </div>
+    </div>
+</header>
 @else
-<div class="header">
-    <a href="{{ route('items.index') }}">
-        <img src="/images/logo.svg" alt="ロゴ">
-    </a>
-    <form action="{{ route('items.index')}}" method="get">
-        <input type="search" name="q" id="global-search" placeholder="なにをお探しですか？" value="{{ request('q') }}">
-    </form>
+<header class="g-header">
+    <div class="g-header__inner">
+        <div class="g-header__logo">
+            <a href="{{ route('items.index') }}">
+                <img src="/images/logo.svg" alt="ロゴ">
+            </a>
+        </div>
 
-    @auth
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">
-            ログアウト
-        </button>
-    </form>
-    @endauth
+        <form class="g-header__search" action="{{ route('items.index')}}" method="get">
+            <input
+                type="search"
+                name="q"
+                id="global-search"
+                placeholder="なにをお探しですか？"
+                value="{{ request('q') }}">
+        </form>
 
-    @guest
-    <a href="{{ route('login') }}">ログイン</a>
-    @endguest
+        <div class="g-header__spacer"></div>
 
-    <a href="{{route('mypage')}}">マイページ</a>
-    <a href="{{ route('items.create') }}">出品</a>
-</div>
+        <nav class="g-header__nav">
+            @auth
+            <form action="{{ route('logout') }}" method="POST" class="g-header__nav-item">
+                @csrf
+                <button type="submit">ログアウト</button>
+            </form>
+            @endauth
+
+            @guest
+            <a class="g-header__nav-item" href="{{ route('login') }}">ログイン</a>
+            @endguest
+
+            <a class="g-header__nav-item" href="{{ route('mypage') }}">マイページ</a>
+            <a class="g-header__nav-item g-header__nav-item--primary" href="{{ route('items.create') }}">出品</a>
+        </nav>
+    </div>
+</header>
 @endif
