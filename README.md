@@ -38,7 +38,7 @@ MAIL_FROM_NAME="Furima App"
 QUEUE_CONNECTION=sync
 ```
 
-# テスト実行方法
+## テスト実行方法
 
 このプロジェクトは **SQLite（メモリ）** を使って高速・無依存でテストが実行できるようにしています。
 MySQL や MailHog の起動は不要です。
