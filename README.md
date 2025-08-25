@@ -11,7 +11,7 @@ cp -n src/.env.example src/.env
 
 docker compose up -d --build
 docker compose exec php composer install
-docker compose exec php php artisan key:generate    
+docker compose exec php php artisan key:generate
 docker compose exec php php artisan storage:link
 docker compose exec php php artisan migrate --seed
 ```
@@ -38,6 +38,19 @@ MAIL_FROM_NAME="Furima App"
 QUEUE_CONNECTION=sync
 ```
 
+# テスト実行方法
+
+このプロジェクトは **SQLite（メモリ）** を使って高速・無依存でテストが実行できるようにしています。
+MySQL や MailHog の起動は不要です。
+
+```bash
+# 念のため設定キャッシュをクリア
+docker compose exec php php artisan config:clear
+
+# テスト実行
+docker compose exec php php artisan test -v
+```
+
 ## 使用技術
 
 - PHP：8.1
@@ -45,7 +58,7 @@ QUEUE_CONNECTION=sync
 - DB：MySQL 8.0.26
 - Mail：MailHog
 
-## URL一覧
+## URL 一覧
 
 - 商品一覧画面: http://localhost/
 - 商品詳細画面: http://localhost/item/{item_id}
@@ -60,8 +73,6 @@ QUEUE_CONNECTION=sync
 - 購入商品一覧: http://localhost/mypage?page=buy
 - 出品商品一覧: http://localhost/mypage?page=sell
 
-
 ## ER 図
+
 <img width="979" height="934" alt="Image" src="https://github.com/user-attachments/assets/21743559-f31b-4bc4-86b3-7726d060fc58" />
-
-
