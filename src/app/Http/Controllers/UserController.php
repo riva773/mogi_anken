@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
-use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ProfileRequest;
 
@@ -50,7 +48,7 @@ class UserController extends Controller
             return view('users.mypage', compact('user', 'tab', 'purchases'));
         }
 
-        return view('users.profile', compact('user', 'items'));
+        return view('users.mypage', compact('user', 'items'));
     }
 
     public function editProfile()
@@ -91,6 +89,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('mypage');
+        return redirect()->route('items.index');
     }
 }

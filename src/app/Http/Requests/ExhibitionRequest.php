@@ -13,11 +13,28 @@ class ExhibitionRequest extends FormRequest
 
     public function rules(): array
     {
+        $allowed = [
+            'ファッション',
+            '家電',
+            'インテリア',
+            'レディース',
+            'メンズ',
+            'コスメ',
+            '本',
+            'ゲーム',
+            'スポーツ',
+            'キッチン',
+            'ハンドメイド',
+            'アクセサリー',
+            'おもちゃ',
+            'ベビー・キッズ',
+        ];
         return [
             'name' => ['required'],
             'description' => ['required', 'max:255'],
             'image' => ['required', 'mimes:jpeg,png'],
-            'category_id' => ['required'],
+            'categories'   => ['nullable', 'array'],
+            'categories.*' => ['string', 'in:' . implode(',', $allowed)],
             'condition' => ['required'],
             'price' => ['required', 'numeric', 'min:0'],
         ];

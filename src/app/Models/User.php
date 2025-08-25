@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -48,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ItemShippingOverride::class);
     }
 
-   
+
 
     /**
      * The attributes that are mass assignable.
@@ -59,6 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'postal_code',
+        'address',
+        'building'
     ];
 
     /**
@@ -100,5 +105,12 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return asset('storage/' . $this->avatar);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::needsRehash($value)
+            ? Hash::make($value)
+            : $value;
     }
 }

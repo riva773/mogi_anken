@@ -23,6 +23,9 @@
             <img src="{{ $item->image }}" alt="{{ $item->name }}">
         </div>
         <div class="item-name">{{ $item->name }}</div>
+        @if(($item->status ?? null) === 'sold')
+        <div class="sold-label">Sold</div>
+        @endif
     </a>
     @empty
     <div class="empty">表示できる商品がありません。</div>

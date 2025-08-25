@@ -13,33 +13,29 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('page', 'recommend');
-        $q = $request->query('q');
+        $q   = trim((string) $request->query('q', ''));
+
+        $base = Item::query()->select(['id', 'name', 'image', 'price', 'status', 'seller_id']);
 
         if ($tab === 'mylist') {
             if (!Auth::check()) {
                 $items = collect();
             } else {
-                $items = Item::query()->whereHas('likedBy', function ($builder) {
-                    $builder->whereKey(Auth::id());
-                })
-                    ->when($q !== null && $q !== '', function ($query) use ($q) {
-                        $query->where('name', 'LIKE', '%' . $q . '%');
-                    })
+                $items = $base
+                    ->whereHas('likedBy', fn($b) => $b->whereKey(Auth::id()))
+                    ->where('seller_id', '!=', Auth::id())
+                    ->when($q !== '', fn($q2) => $q2->where('name', 'like', "%{$q}%"))
                     ->latest()
                     ->get();
             }
         } else {
-            $query = Item::query();
-            if (Auth::check()) {
-                $query->where('seller_id', '!=', Auth::id());
-            }
-
-            $query->when($q !== null && $q !== '', function ($sub) use ($q) {
-                $sub->where('name', 'LIKE', '%' . $q . '%');
-            });
-
-            $items = $query->latest()->get();
+            $items = $base
+                ->when(Auth::check(), fn($q2) => $q2->where('seller_id', '!=', Auth::id()))
+                ->when($q !== '', fn($q2) => $q2->where('name', 'like', "%{$q}%"))
+                ->latest()
+                ->get();
         }
+
         return view('items.index', compact('items', 'tab'));
     }
 
@@ -84,9 +80,10 @@ class ItemController extends Controller
             $item->image = '/storage/' . $path;
         }
 
+        $item->categories = array_values(array_unique($validated['categories'] ?? []));
+
         $item->save();
 
-        return redirect()->route('items.show', $item->id)
-            ->with('status', '出品が完了しました');
+        return redirect()->route('items.show', $item->id);
     }
 }

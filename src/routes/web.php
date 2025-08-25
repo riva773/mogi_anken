@@ -5,10 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LikesController;
-use GuzzleHttp\Middleware;
-use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ShippingAddressController;
-use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 

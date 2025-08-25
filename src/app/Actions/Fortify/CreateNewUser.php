@@ -3,9 +3,9 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth; // ★追加
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -17,30 +17,28 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make(
             $input,
             [
-                'email' => ['required', 'email'],
-                'password' => ['required', 'min:8'],
-                'password_confirmation' => ['required', 'min:8', 'same:password'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'], // ★unique等を推奨
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
             ],
             [
-                'email.required' => ':attributeは必須です。',
-                'email.email'    => ':attributeの形式が正しくありません。',
-                'password.required' => ':attributeは必須です。',
-                'password.min'      => ':attributeは:min文字以上で入力してください。',
-                'password_confirmation.required' => ':attributeは必須です。',
-                'password_confirmation.min'      => ':attributeは:min文字以上で入力してください。',
-                'password_confirmation.same'     => ':attributeはパスワードと一致させてください。',
-            ],
-            [
-                'email' => 'メールアドレス',
-                'password' => 'パスワード',
-                'password_confirmation' => '確認用パスワード',
+                'name.required' => 'お名前を入力してください',
+                'email.required' => 'メールアドレスを入力してください',
+                'email.email'    => 'メールアドレスの形式が正しくありません',
+                'password.required' => 'パスワードを入力してください',
+                'password.min'      => 'パスワードは8文字以上で入力してください',
+                'password.confirmed' => 'パスワードと一致しません',
             ]
         )->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
+        $user = User::create([
+            'name'     => $input['name'],
+            'email'    => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        Auth::login($user);
+
+        return $user;
     }
 }

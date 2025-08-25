@@ -17,7 +17,12 @@ class Item extends Model
         'seller_id',
         'status',
         'brand',
-        'buyer_id'
+        'buyer_id',
+        'categories'
+    ];
+
+    protected $casts = [
+        'categories' => 'array',
     ];
 
     use HasFactory;
@@ -30,6 +35,8 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'seller_id', 'id');
     }
+
+
 
     public function buyer()
     {

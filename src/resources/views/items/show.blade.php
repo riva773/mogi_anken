@@ -27,23 +27,33 @@
             <div class="item-stats">
                 <div class="like-block">
                     @if(!$likedByMe)
-                    <form action="{{ route('items.like',['item_id' => $item->id]) }}" method="post" class="like-form">
+                    <form action="{{ route('items.like', ['item_id' => $item->id]) }}" method="post" class="like-form">
                         @csrf
-                        <button type="submit" class="icon-btn"><i class="fa-solid fa-star"></i></button>
+                        <button type="submit"
+                            class="icon-btn"
+                            data-liked="false"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
                     </form>
                     @else
-                    <form action="{{ route('items.unlike',['item_id' => $item->id ]) }}" method="post" class="like-form">
+                    <form action="{{ route('items.unlike', ['item_id' => $item->id]) }}" method="post" class="like-form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="icon-btn is-active"><i class="fa-solid fa-star"></i></button>
+                        <button type="submit"
+                            class="icon-btn is-active"
+                            data-liked="true"
+                            aria-pressed="true">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
                     </form>
                     @endif
-                    <span class="count">{{ $item->likes_count }}</span>
+                    <span class="count" data-testid="likes-count">{{ $item->likes_count }}</span>
                 </div>
 
                 <div class="comment-block">
                     <i class="fa-solid fa-comment"></i>
-                    <span class="count">{{ $item->comments_count }}</span>
+                    <span class="count" data-testid="comments-count">{{ $item->comments_count }}</span>
                 </div>
             </div>
 
@@ -60,7 +70,7 @@
                     <strong>カテゴリ</strong>
                     <div class="chips">
                         @foreach(($item->categories ?? []) as $cat)
-                        <span class="chip">{{ $cat->name }}</span>
+                        <span class="chip">{{ $cat }}</span>
                         @endforeach
                     </div>
                 </div>
@@ -71,7 +81,7 @@
             </div>
 
             <div class="item-comments-container">
-                <h3>コメント({{ $item->comments_count }})</h3>
+                <h3>コメント(<span data-testid="comments-count">{{ $item->comments_count }}</span>)</h3>
 
                 @forelse ($comments as $comment)
                 <div class="comment">
@@ -86,7 +96,7 @@
                 @endforelse
 
                 <h4>商品へのコメント</h4>
-                <form action="{{ route('item.comments.store',$item->id) }}" method="post" class="comment-form">
+                <form action="{{ route('item.comments.store', $item) }}" method="post" class="comment-form">
                     @csrf
                     @include('partials.errors')
                     <textarea name="content" placeholder="こちらにコメントが入ります。"></textarea>
