@@ -185,7 +185,7 @@ class AppFlowTest extends TestCase
             'password' => 'wrongpass',
         ]);
         $res->assertRedirect('/login');
-        $res->assertSessionHasErrors(['email' => 'ログイン情報が登録されていません']);
+        $res->assertSessionHasErrors(['email' => 'ログイン情報が登録されていません。']);
         $this->assertGuest();
     }
 

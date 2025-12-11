@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
-class LoginRequest extends FormRequest
+
+class LoginRequest extends FortifyLoginRequest
 {
     public function authorize(): bool
     {
@@ -16,6 +17,14 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'password' => ['required'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'メールアドレスを入力してください',
+            'password.required' => 'パスワードを入力してください',
         ];
     }
 }
