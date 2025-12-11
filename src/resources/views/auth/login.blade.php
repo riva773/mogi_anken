@@ -12,6 +12,9 @@
 <div class="auth">
     <div class="auth__card">
         <h1 class="auth__title">ログイン</h1>
+        @foreach($errors->all() as $error)
+            <li class="error">{{ $error }}</li>
+        @endforeach
         <form action="{{ route('login') }}" method="post" class="auth__form">
             @csrf
             <div class="form-group">

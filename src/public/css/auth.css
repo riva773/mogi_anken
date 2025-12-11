@@ -101,6 +101,11 @@ body {
     margin: 4px 0
 }
 
+.error {
+    color: red;
+    list-style: none;
+}
+
 
 @media (min-width:1400px) and (max-width:1540px) {
     .auth {
