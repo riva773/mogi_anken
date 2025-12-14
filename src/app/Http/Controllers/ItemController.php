@@ -14,9 +14,7 @@ class ItemController extends Controller
     {
         $tab = $request->query('page', 'recommend');
         $q   = trim((string) $request->query('q', ''));
-
         $base = Item::query()->select(['id', 'name', 'image', 'price', 'status', 'seller_id']);
-
         if ($tab === 'mylist') {
             if (!Auth::check()) {
                 $items = collect();
@@ -35,7 +33,6 @@ class ItemController extends Controller
                 ->latest()
                 ->get();
         }
-
         return view('items.index', compact('items', 'tab'));
     }
 
