@@ -32,6 +32,7 @@ $isSimple = request()->routeIs([
                 id="global-search"
                 placeholder="なにをお探しですか？"
                 value="{{ request('q') }}">
+            <input type="hidden" name="page" value="{{ request('page','recommend')}}">
         </form>
 
         <div class="g-header__spacer"></div>

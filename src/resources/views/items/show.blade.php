@@ -33,7 +33,7 @@
                             class="icon-btn"
                             data-liked="false"
                             aria-pressed="false">
-                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-heart"></i>
                         </button>
                     </form>
                     @else
@@ -44,7 +44,7 @@
                             class="icon-btn is-active"
                             data-liked="true"
                             aria-pressed="true">
-                            <i class="fa-solid fa-star"></i>
+                            <i style=color:red; class="fa-solid fa-heart"></i>
                         </button>
                     </form>
                     @endif
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="comment-block">
-                    <i class="fa-solid fa-comment"></i>
+                    <i class="fa-regular fa-comment"></i>
                     <span class="count" data-testid="comments-count">{{ $item->comments_count }}</span>
                 </div>
             </div>

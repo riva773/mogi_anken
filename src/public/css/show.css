@@ -90,10 +90,6 @@ body {
     cursor: pointer;
 }
 
-.icon-btn.is-active {
-    background: #ffe08a;
-}
-
 .comment-block i {
     display: flex;
     align-items: center;

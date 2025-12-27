@@ -33,6 +33,7 @@ class ItemController extends Controller
                 ->latest()
                 ->get();
         }
+
         return view('items.index', compact('items', 'tab'));
     }
 
@@ -66,6 +67,7 @@ class ItemController extends Controller
 
         $item = new Item();
         $item->name        = $validated['name'];
+        $item->brand       = $validated['brand'];
         $item->price       = $validated['price'];
         $item->description = $validated['description'];
         $item->condition   = $validated['condition'];

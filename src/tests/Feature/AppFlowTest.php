@@ -694,7 +694,7 @@ class AppFlowTest extends TestCase
         \Illuminate\Support\Facades\Storage::disk('public')
             ->assertExists(str_replace('/storage/', '', $item->image));
 
-        // カテゴリ（検証
+        // カテゴリ（検証)
         $this->assertSame($cats, $item->categories, 'categories array should be saved as-is');
 
         // 詳細ページの表示確認

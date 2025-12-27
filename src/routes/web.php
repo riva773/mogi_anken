@@ -59,3 +59,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('purchase/address/{item_id}', [ShippingAddressController::class, 'update'])->name('purchase.address.update');
 });
+
+Route::get('purchase/{item}/card', [OrderController::class, 'card'])->name('orders.card');
