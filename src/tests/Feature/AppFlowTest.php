@@ -447,7 +447,7 @@ class AppFlowTest extends TestCase
         $res = $this->post(
             route('orders.store', ['item_id' => $item->id]),
             [
-                'payment_method' => 'カード支払い',
+                'payment_method' => 'コンビニ支払い',
                 'shipping' => [
                     'name'        => 'テスト太郎',
                     'postal_code' => '1234567',
@@ -532,9 +532,9 @@ class AppFlowTest extends TestCase
 
         // 3) その住所で購入
         $this->post(route('orders.store', ['item_id' => $item->id]), [
-            'payment_method' => 'カード支払い',
+            'payment_method' => 'コンビニ支払い',
             'shipping' => [
-                'name'        => '', // 実装上 name 未使用なら空でOK
+                'name'        => 'test商品',
                 'postal_code' => $addr['postal_code'],
                 'address'     => $addr['address'],
                 'building'    => $addr['building'],
@@ -667,6 +667,8 @@ class AppFlowTest extends TestCase
         ];
 
         $res = $this->post(route('items.store'), $payload);
+        $res->assertStatus(302);
+
         $res->assertSessionHasNoErrors();
 
         $item = \App\Models\Item::query()

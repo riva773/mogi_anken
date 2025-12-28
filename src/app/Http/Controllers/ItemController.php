@@ -67,7 +67,7 @@ class ItemController extends Controller
 
         $item = new Item();
         $item->name        = $validated['name'];
-        $item->brand       = $validated['brand'];
+        $item->brand       = $validated['brand'] ?? null;
         $item->price       = $validated['price'];
         $item->description = $validated['description'];
         $item->condition   = $validated['condition'];

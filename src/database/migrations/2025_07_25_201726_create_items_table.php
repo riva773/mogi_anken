@@ -24,7 +24,7 @@ class CreateItemsTable extends Migration
             $table->foreignId('seller_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('buyer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->enum('status', ['for_sale', 'sold'])->default('for_sale');
-            $table->json('categories')->nullable()->after('brand');
+            $table->json('categories')->nullable();
             $table->timestamps();
         });
     }
